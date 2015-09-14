@@ -23,13 +23,19 @@ Route::get('about', function(){
 	$staff = [
 				['name'=>'Mel', 'age'=>31],
 				['name'=>'Brian', 'age'=>14],
-				['name'=>'Jake', 'age'=>34]
+				['name'=>'Jake']
 			];
+
+	$comments = [
+	// 	['heading'=>'Great Product', 'comment'=>'I love this thing!'],
+	// 	['heading'=>'<h1>Hello</h1>', 'comment'=>'<script>location="http://www.trademe.co.nz"</script>']
+	 ];
 
 	return view('about')->with([
 		'title' => $title,
 		'metaDesc' => $metaDesc,
-		'staff' => $staff
+		'staff' => $staff,
+		'comments'=>$comments
 	]);
 });
 
