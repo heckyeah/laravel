@@ -15,30 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('about', function(){
-
-	// Create some data
-	$title = 'About Page TEST';
-	$metaDesc = 'We have staff members';
-	$staff = [
-				['name'=>'Mel', 'age'=>31],
-				['name'=>'Brian', 'age'=>14],
-				['name'=>'Jake']
-			];
-
-	$comments = [
-	// 	['heading'=>'Great Product', 'comment'=>'I love this thing!'],
-	// 	['heading'=>'<h1>Hello</h1>', 'comment'=>'<script>location="http://www.trademe.co.nz"</script>']
-	 ];
-
-	return view('about')->with([
-		'title' => $title,
-		'metaDesc' => $metaDesc,
-		'staff' => $staff,
-		'comments'=>$comments
-	]);
-});
-
+Route::get('about', 'AboutController@index');
+Route::get('about/create', 'AboutController@create');
 
 
 
