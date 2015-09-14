@@ -16,5 +16,31 @@ Route::get('/', function () {
 });
 
 Route::get('about', function(){
-	return view('about');
+
+	// Create some data
+	$title = 'About Page TEST';
+	$metaDesc = 'We have staff members';
+	$staff = [
+				['name'=>'Mel', 'age'=>31],
+				['name'=>'Brian', 'age'=>14],
+				['name'=>'Jake', 'age'=>34]
+			];
+
+	return view('about')->with([
+		'title' => $title,
+		'metaDesc' => $metaDesc,
+		'staff' => $staff
+	]);
 });
+
+
+
+
+
+
+
+
+
+
+
+
