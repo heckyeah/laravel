@@ -26,8 +26,8 @@ class AboutController extends Controller
                 ];
 
         $comments = [
-        //  ['heading'=>'Great Product', 'comment'=>'I love this thing!'],
-        //  ['heading'=>'<h1>Hello</h1>', 'comment'=>'<script>location="http://www.trademe.co.nz"</script>']
+          ['heading'=>'Great Product', 'comment'=>'I love this thing!'],
+          ['heading'=>'<h1>Hello</h1>', 'comment'=>'<script>location="http://www.trademe.co.nz"</script>']
          ];
 
         return view('about.index')->with([
@@ -56,7 +56,14 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate( $request, [
+            'first_name'=>'required|min:2|max:20',
+            'last_name'=>'required|min:2|max:30'
+        ]);
+
+        // Validation passes
+
+        return $request;
     }
 
     /**

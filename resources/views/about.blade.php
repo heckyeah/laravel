@@ -19,8 +19,6 @@
 					Child.
 				@endif
 
-			@else
-				No age provided
 			@endif
 
 		</li>
@@ -49,7 +47,8 @@
 	</div>
 	@endforelse
 
-	{{ date('d-m-Y') }}
+	
+	<?php echo date('Y'); ?>
 
 
 
