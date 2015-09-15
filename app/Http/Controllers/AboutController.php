@@ -62,8 +62,17 @@ class AboutController extends Controller
         ]);
 
         // Validation passes
+        //$staff = new \App\Staff();
 
-        return $request;
+        // $staff->first_name = $request->first_name;
+        // $staff->last_name = $request->last_name;
+        // $staff->age = $request->age;
+
+       // $staff->save();
+        \App\Staff::create($request->all());
+
+
+        return redirect('about');
     }
 
     /**
