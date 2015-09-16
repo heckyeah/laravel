@@ -21,7 +21,9 @@ class AboutController extends Controller
         $title = 'About Page TEST';
         $metaDesc = 'We have staff members';
 
-        return view('about.index', compact('title', 'metaDesc'));
+        $allStaff = Staff::all();
+
+        return view('about.index', compact('title', 'metaDesc', 'allStaff'));
     }
 
     /**
@@ -47,19 +49,12 @@ class AboutController extends Controller
             'last_name'=>'required|min:2|max:30'
         ]);
 
-        // Validation passes
-       //  $staff = new Staff();
-
-        // $staff->first_name = $request->first_name;
-        // $staff->last_name = $request->last_name;
-        // $staff->age = $request->age;
-
-       // $staff->save();
+        // Insert a slug into the request
+        $request['slug'] = str_slug( $request->first_name.' '.$request->last_name );
         
-        Staff::create($request->all());
+        $staffMember = Staff::create($request->all());
 
-
-        return redirect('about');
+        return redirect('about/'.$staffMember->slug);
     }
 
     /**
@@ -68,9 +63,12 @@ class AboutController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+
+        $staffMember = Staff::where('slug', $slug)->firstOrFail();
+      
+        return view('about.show', compact('staffMember'));
     }
 
     /**
@@ -79,9 +77,11 @@ class AboutController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $staffMember = Staff::where('slug', $slug)->firstOrFail();
+
+        return view('about.edit', compact('staffMember'));
     }
 
     /**
