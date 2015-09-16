@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Staff;
 
 class AboutController extends Controller
 {
@@ -19,23 +20,8 @@ class AboutController extends Controller
         // Create some data
         $title = 'About Page TEST';
         $metaDesc = 'We have staff members';
-        $staff = [
-                    ['name'=>'Mel', 'age'=>31],
-                    ['name'=>'Brian', 'age'=>14],
-                    ['name'=>'Jake']
-                ];
 
-        $comments = [
-          ['heading'=>'Great Product', 'comment'=>'I love this thing!'],
-          ['heading'=>'<h1>Hello</h1>', 'comment'=>'<script>location="http://www.trademe.co.nz"</script>']
-         ];
-
-        return view('about.index')->with([
-            'title' => $title,
-            'metaDesc' => $metaDesc,
-            'staff' => $staff,
-            'comments'=>$comments
-        ]);
+        return view('about.index', compact('title', 'metaDesc'));
     }
 
     /**
@@ -62,7 +48,7 @@ class AboutController extends Controller
         ]);
 
         // Validation passes
-        //$staff = new \App\Staff();
+       //  $staff = new Staff();
 
         // $staff->first_name = $request->first_name;
         // $staff->last_name = $request->last_name;
@@ -70,8 +56,7 @@ class AboutController extends Controller
 
        // $staff->save();
         
-        
-        \App\Staff::create($request->all());
+        Staff::create($request->all());
 
 
         return redirect('about');
