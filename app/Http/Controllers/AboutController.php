@@ -69,6 +69,8 @@ class AboutController extends Controller
         // $staff->age = $request->age;
 
        // $staff->save();
+        
+        
         \App\Staff::create($request->all());
 
 
