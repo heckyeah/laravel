@@ -46,14 +46,35 @@ class AboutController extends Controller
     {
         $this->validate( $request, [
             'first_name'=>'required|min:2|max:20',
-            'last_name'=>'required|min:2|max:30'
+            'last_name'=>'required|min:2|max:30',
+            'age'=>'required|between:0,130|integer',
+            'profile_image'=>'required|image|between:0,2000'
         ]);
 
-        // Insert a slug into the request
-        $request['slug'] = str_slug( $request->first_name.' '.$request->last_name );
+        // Get the files extension
+        $fileExtention = $request->file('profile_image')->getClientOriginalExtension();
         
-        $staffMember = Staff::create($request->all());
+        // Generate a random name to prevent overwrites
+        $fileName = 'staff-'.uniqid().'.'.$fileExtention;
 
+        // Move the file from temp to final
+        $request->file('profile_image')->move('img/staff', $fileName);
+        
+        \Image::make('img/staff/'.$fileName)->resize(240, null, function($constraint){
+            $constraint->aspectRatio();
+        })->save('img/staff/'.$fileName);
+
+        // Extract the form data
+        $input = $request->all();
+
+        // Insert a slug into the request
+        $input['slug'] = str_slug( $request->first_name.' '.$request->last_name ); 
+        $input['profile_image'] = $fileName;
+
+        // Mass assign the form data into the database
+        $staffMember = Staff::create($input);
+
+        // Redirect to the new staff member by their slug
         return redirect('about/'.$staffMember->slug);
     }
 
@@ -91,9 +112,30 @@ class AboutController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        //
+        
+        // Validation
+        $this->validate( $request, [
+            'first_name'=>'required|min:2|max:20',
+            'last_name'=>'required|min:2|max:30',
+            'age'=>'required|between:0,130|integer'
+        ]);
+
+        // Find the staff member to edit
+        $staffMember = Staff::where('slug', $slug)->firstOrFail();
+
+        $staffMember->first_name = $request->first_name;
+        $staffMember->last_name = $request->last_name;
+        $staffMember->age = $request->age;
+
+        // Insert a slug into the request
+        $staffMember->slug = str_slug( $request->first_name.' '.$request->last_name );
+
+        $staffMember->save();
+
+        return redirect('about/'.$staffMember->slug);
+
     }
 
     /**

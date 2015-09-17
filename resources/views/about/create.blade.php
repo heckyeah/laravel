@@ -8,7 +8,7 @@
 	<h1>Add a new staff member</h1>
 	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, sunt!</p>
 
-	<form action="{{ url('about') }}" method="post">
+	<form action="{{ url('about') }}" method="post" novalidate enctype="multipart/form-data">
 		
 		{{ csrf_field() }}
 
@@ -22,6 +22,18 @@
 			<label for="last_name">Last Name: </label>
 			<input type="text" name="last_name" value="{{ old('last_name') }}">
 			{{ $errors->first('last_name') }}
+		</div>
+
+		<div>
+			<label for="age">Age: </label>
+			<input type="number" name="age" value="{{ old('age') }}" min="0" max="130" step="1">
+			{{ $errors->first('age') }}
+		</div>
+
+		<div>
+			<label for="profile_image">Profile Image: </label>
+			<input type="file" name="profile_image">
+			{{ $errors->first('profile_image') }}
 		</div>
 
 		<input type="submit" value="Add Staff">
