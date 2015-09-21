@@ -14,7 +14,13 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call(UserTableSeeder::class);
+        for($i=0;$i<100;$i++) {
+            $this->call(UserTableSeeder::class);
+        }
+
+        // for($i=0;$i<10;$i++) {
+        //     $this->call(WorkphoneTableSeeder::class);
+        // }
 
         Model::reguard();
     }

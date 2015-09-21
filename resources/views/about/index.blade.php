@@ -12,7 +12,7 @@
 
 	<ul>
 		@foreach($allStaff as $staffMember)
-		<li><a href="{{ url('about/'.$staffMember->slug) }}">{{ $staffMember->first_name }} {{ $staffMember->last_name }}</a></li>
+		<li><a href="{{ url('about/'.$staffMember->slug) }}">{{ $staffMember->first_name }} {{ $staffMember->last_name }}</a> {{ $staffMember->workphone->phone_number }}</li>
 		@endforeach
 	</ul>
 

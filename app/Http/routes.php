@@ -35,5 +35,14 @@ Route::resource('dashboard', 'DashboardController');
 Route::post('dashboard/change_password', 'DashboardController@changePassword');
 
 
+Route::resource('posts', 'PostsController');
+
+
+
+
+
+
+
+
 
 
